@@ -10,7 +10,7 @@ const LocalStorage = ({ bill, updateBill, people, setPeople }) => {
     setPeople(JSON.parse(localStorage.getItem("participants")));
   };
   return (
-    <div className="col-justify-center row">
+    <div className="col-justify-center row m-auto">
       <div className="col-8">
         <h1>Bill Splitter</h1>
       </div>

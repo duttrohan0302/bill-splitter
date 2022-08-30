@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Bill from "./Bill";
 import Participants from "./Participants";
 import LocalStorage from "./LocalStorage";
+import BillCalculation from "./BillCalculation";
 import { initialBill, initialPerson } from "./constants";
 
 const App = () => {
@@ -15,7 +16,7 @@ const App = () => {
       <LocalStorage
         bill={bill}
         updateBill={updateBill}
-        people={setPeople}
+        people={people}
         setPeople={setPeople}
       />
       <Bill bill={bill} updateBill={updateBill} />
@@ -24,6 +25,7 @@ const App = () => {
         people={people}
         setPeople={setPeople}
       />
+      <BillCalculation bill={bill} people={people} setPeople={setPeople}/>
     </div>
   );
 };

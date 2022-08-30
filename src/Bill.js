@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import BillItem from "./BillItem";
 import { v4 as uuid } from 'uuid';
 
@@ -7,10 +7,6 @@ const Bill = ({
     updateBill,
 
 }) => {
-
-  const [totalSgst, setTotalSgst] = useState(0);
-  const [totalCgst, setTotalCgst] = useState(0);
-  const [totalServiceCharge, setTotalServiceCharge] = useState(0);
 
   const { restaurantName, items, sgst, cgst, discount, serviceCharge, total } =
     bill;
@@ -44,24 +40,6 @@ const Bill = ({
       }),
     }));
   };
-
-  useEffect(() => {
-    if (total <= 0) {
-      setTotalCgst(0);
-      setTotalSgst(0);
-      setTotalServiceCharge(0);
-    } else {
-      if (cgst >= 0) {
-        setTotalCgst((cgst * total) / 100);
-      }
-      if (sgst >= 0) {
-        setTotalSgst((sgst * total) / 100);
-      }
-      if (serviceCharge >= 0) {
-        setTotalServiceCharge((serviceCharge * total) / 100);
-      }
-    }
-  }, [total, sgst, cgst, serviceCharge]);
 
   useEffect(()=>{
     if(bill.items.length===0){
@@ -111,7 +89,7 @@ const Bill = ({
         ))}
       </div>
       <div className="mt-2">
-        <label>Service Charge Percentage &nbsp;</label>
+        <label>Service Charge Total &nbsp;</label>
         <input
           type="text"
           value={serviceCharge ? serviceCharge : ""}
@@ -119,29 +97,26 @@ const Bill = ({
           onChange={updateBillGeneric}
           placeholder="Service Charge"
         />
-        = {totalServiceCharge}
       </div>
       <div className="mt-2">
-        <label>SGST Percentage &nbsp; </label>
+        <label>SGST Total&nbsp; </label>
         <input
           type="text"
           value={sgst ? sgst : ""}
           name="sgst"
           onChange={updateBillGeneric}
-          placeholder="SGST Percentage"
+          placeholder="SGST"
         />
-        = {totalSgst}
       </div>
       <div className="mt-2">
-        <label>CGST Charge &nbsp;</label>
+        <label>CGST Total &nbsp;</label>
         <input
           type="text"
           value={cgst ? cgst : ""}
           name="cgst"
           onChange={updateBillGeneric}
-          placeholder="CGST Percentage"
+          placeholder="CGST"
         />
-        = {totalCgst ? totalCgst : 0}
       </div>
     </div>
   );
