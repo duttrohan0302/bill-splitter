@@ -2,12 +2,25 @@ import React from "react";
 
 const LocalStorage = ({ bill, updateBill, people, setPeople }) => {
   const localSave = () => {
-    localStorage.setItem("bill", JSON.stringify(bill));
-    localStorage.setItem("participants", JSON.stringify(people));
+    const savingName = prompt("What name would you like to save it as?")
+
+    let savedList = JSON.parse(localStorage.getItem("restaurant-list"))
+    if(!savedList){
+      savedList=[]
+    }
+    localStorage.setItem("restaurant-list",JSON.stringify([...savedList,savingName]))
+    localStorage.setItem(`${savingName}-bill`, JSON.stringify(bill));
+    localStorage.setItem(`${savingName}-participants`, JSON.stringify(people));
   };
   const fetchFromLocal = () => {
-    updateBill(JSON.parse(localStorage.getItem("bill")));
-    setPeople(JSON.parse(localStorage.getItem("participants")));
+    let savedList = JSON.parse(localStorage.getItem("restaurant-list"))
+    if(!savedList){
+      savedList=[]
+    }
+    const savedName = prompt(`What bill are you trying to fetch? ${savedList.join(",")}`)
+
+    updateBill(JSON.parse(localStorage.getItem(`${savedName}-bill`)));
+    setPeople(JSON.parse(localStorage.getItem(`${savedName}-participants`)));
   };
   return (
     <div className="col-justify-center row m-auto">
